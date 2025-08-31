@@ -1,4 +1,6 @@
+import { ModeToggle } from '@/components/mode-toggle';
 import type { Metadata } from 'next';
+import { ThemeProvider } from 'next-themes';
 import { Inter } from 'next/font/google';
 import './globals.css';
 
@@ -17,10 +19,24 @@ export default function RootLayout({
   return (
     <html lang='en'>
       <body className={inter.className}>
-        <nav>
-          <h1>Recipes for Gilles</h1>
-          {children}
-        </nav>
+        <ThemeProvider
+          attribute='class'
+          defaultTheme='system'
+          enableSystem
+          disableTransitionOnChange
+        >
+          <div className="min-h-screen bg-background">
+            <header className="border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+              <div className="container mx-auto flex h-16 items-center justify-between px-4">
+                <h1 className="text-2xl font-bold">Recipes for Gilles</h1>
+                <ModeToggle />
+              </div>
+            </header>
+            <main className="container mx-auto px-4 py-8">
+              {children}
+            </main>
+          </div>
+        </ThemeProvider>
       </body>
     </html>
   );
